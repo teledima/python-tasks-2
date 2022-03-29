@@ -1,15 +1,33 @@
-from flask import Flask
+import sqlite3
+from flask import Flask, session
 
+conn = sqlite3.connect('users.db')
+cur = conn.cursor()
 app = Flask(__name__)
+app.secret_ket = ''
 
 
 @app.route('/auth')
-def home():
-    pass
+def auth():
+    data = request.json
+    user = data['user']
+    password = data['pass']
+
+    cur.execute('select 1 from users where username=? and password=?')
+    logged = cur.fetchone()
+    
+    if logged:
+        current_users.append(user)
+        return '200'
+    else:
+        return '400'
 
 @app.route('/help')
 def help():
-    pass
+    return "auth user pass - авторизация\n"
+           "list - показать список файлов\n"
+           "info file - показать сведения о файле\n"
+           "retr file1 file2 file_n - передать файлы\n"
 
 
 @app.route('/retr/<filename>')
