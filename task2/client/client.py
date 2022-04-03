@@ -1,7 +1,5 @@
 import requests
-import sys
 from cmd import Cmd
-from msvcrt import getch, putch
 
 
 class MyCmd(Cmd):
